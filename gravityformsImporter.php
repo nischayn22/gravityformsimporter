@@ -59,25 +59,26 @@ $url = $base_url . $route . '?api_key=' . $api_key . '&signature=' . $sig . '&ex
 $response = json_decode( MediaWikiApi::httpRequest( $url ) );
 $name_fields = explode( ' ', $settings['page_name'] );
 foreach($response->response->entries as $entry) {
-	$entry = (array) $entry;
-	$field_values = array();
-	foreach( $entry as $key => $value ) {
-		if (array_key_exists($key, $form_fields)) {
-			if ( $settings['upload_links'] && strstr($value, 'http') ) {
-				file_put_contents( basename( $value ), file_get_contents( $value ) );
-				if ( $wikiApi->upload( basename( $value ), __DIR__ . '/' . basename( $value ) ) ) {
-					$value = basename( $value );
-				}
-				unlink( __DIR__ . '/' . basename( $value ) );
-			}
-			$field_values[$key] = $value;
-		}
-	}
 	$pageName = array();
 	foreach	( $name_fields as $field ) {
 		$pageName[] = $entry[$field];
 	}
 	$pageName = implode( ' ', $pageName );
+
+	$entry = (array) $entry;
+	$field_values = array();
+	foreach( $entry as $key => $value ) {
+		if (array_key_exists($key, $form_fields)) {
+			if ( $settings['upload_links'] && strstr($value, 'http') ) {
+				file_put_contents( $pageName . basename( $value ), file_get_contents( $value ) );
+				if ( $wikiApi->upload( $pageName . basename( $value ), __DIR__ . '/' . $pageName . basename( $value ) ) ) {
+					$value = $pageName . basename( $value );
+					unlink( __DIR__ . '/' . basename( $value ) );
+				}
+			}
+			$field_values[$key] = $value;
+		}
+	}
 	$content = "
 	{{" . $settings['template_name'] . "
 	|" . 
