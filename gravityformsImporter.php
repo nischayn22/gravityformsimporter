@@ -64,7 +64,8 @@ foreach($response->response->entries as $entry) {
 	foreach	( $name_fields as $field ) {
 		$pageName[] = $entry[$field];
 	}
-	$pageName = implode( ' ', $pageName );
+	// Windows doens't like colons
+	$pageName = str_replace( ":", "_", trim( implode( ' ', $pageName ) ) );
 
 	$field_values = array();
 	foreach( $entry as $key => $value ) {
