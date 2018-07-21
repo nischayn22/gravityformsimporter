@@ -66,14 +66,15 @@ foreach($response->response->entries as $entry) {
 	}
 	// Windows doens't like colons
 	$pageName = str_replace( ":", "_", trim( implode( ' ', $pageName ) ) );
+	$pageName = str_replace( "#", "_", $pageName );
 
 	$field_values = array();
 	foreach( $entry as $key => $value ) {
 		if (array_key_exists($key, $form_fields)) {
 			if ( $settings['upload_links'] && strstr($value, 'http') ) {
-				file_put_contents( $pageName . basename( $value ), file_get_contents( $value ) );
-				if ( $wikiApi->upload( $pageName . basename( $value ), __DIR__ . '/' . $pageName . basename( $value ) ) ) {
-					$value = $pageName . basename( $value );
+				file_put_contents( $pageName  . ' ' . basename( $value ), file_get_contents( $value ) );
+				if ( $wikiApi->upload( $pageName  . ' ' . basename( $value ), __DIR__ . '/' . $pageName  . ' ' . basename( $value ) ) ) {
+					$value = $pageName  . ' ' . basename( $value );
 					unlink( __DIR__ . '/' . basename( $value ) );
 				}
 			}
