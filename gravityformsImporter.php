@@ -76,8 +76,11 @@ foreach($response->response->entries as $entry) {
 				if ( $wikiApi->upload( $pageName  . ' ' . basename( $value ), __DIR__ . '/' . $pageName  . ' ' . basename( $value ) ) ) {
 					$value = $pageName  . ' ' . basename( $value );
 					unlink( __DIR__ . '/' . basename( $value ) );
+					$value = urlencode( $value );
 				}
 			}
+			$field_values[$key] = $value;
+		} else if ( $key == "date_created" ) {
 			$field_values[$key] = $value;
 		}
 	}
