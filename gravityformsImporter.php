@@ -94,6 +94,9 @@ foreach($response->response->entries as $entry) {
 		)
 	) . 
 	"}}";
+	if ( !empty( $settings['destNamespace'] ) ) {
+		$pageName = $settings['destNamespace'] . ':' . $pageName;
+	}
 	$wikiApi->editPage( $pageName, $content );
 	echo "Copied page $pageName \n";
 }

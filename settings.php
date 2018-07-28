@@ -13,3 +13,4 @@ $settings['wiki_pass'] = "password"; // Password
 $settings['template_name'] = 'FormEntry';
 $settings['upload_links'] = true;
 $settings['page_name'] = "date_created"; // Form fields separated by space
+$settings['destNamespace'] = "";
