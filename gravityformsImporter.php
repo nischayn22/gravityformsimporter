@@ -84,16 +84,14 @@ foreach($response->response->entries as $entry) {
 			$field_values[$key] = $value;
 		}
 	}
-	$content = "
-	{{" . $settings['template_name'] . "
-	|" . 
-	implode("|\n", array_map(
+	$content = "{{" . $settings['template_name'] . "\n	|" . 
+	implode("\n	|", array_map(
 		function ($v, $k) { return $k . '=' . $v; },
 		$field_values,
 		array_keys( $field_values )
 		)
 	) . 
-	"}}";
+	"\n}}";
 	if ( !empty( $settings['destNamespace'] ) ) {
 		$pageName = $settings['destNamespace'] . ':' . $pageName;
 	}
