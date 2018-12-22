@@ -55,7 +55,7 @@ if( $wikiApi->login($settings['wiki_user'], $settings['wiki_pass']) ) {
 	echo "Login failed!\n";
 }
 
-$url = $base_url . $route . '?api_key=' . $api_key . '&signature=' . $sig . '&expires=' . $expires;
+$url = $base_url . $route . '?paging[page_size]=100&api_key=' . $api_key . '&signature=' . $sig . '&expires=' . $expires;
 $response = json_decode( MediaWikiApi::httpRequest( $url ) );
 $name_fields = explode( ' ', $settings['page_name'] );
 foreach($response->response->entries as $entry) {
