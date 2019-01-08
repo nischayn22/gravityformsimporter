@@ -70,6 +70,10 @@ foreach($response->response->entries as $entry) {
 	$field_values = array();
 	$entry = (array) $entry;
 	foreach( $entry as $key => $value ) {
+		if ( $wikiApi->pageExists( $settings['destNamespace'] . ':' . $pageName ) ) {
+			echo "Skipping existing page $pageName \n";
+			continue;
+		}
 		if (array_key_exists($key, $form_fields)) {
 			if ( $settings['upload_links'] && strstr($value, 'http') ) {
 				file_put_contents( $pageName  . ' ' . basename( $value ), file_get_contents( $value ) );
