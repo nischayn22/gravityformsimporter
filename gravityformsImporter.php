@@ -81,7 +81,7 @@ foreach($response->response->entries as $entry) {
 				if ( $wikiApi->upload( $pageName  . ' ' . basename( $value ), __DIR__ . '/' . $pageName  . ' ' . basename( $value ) ) ) {
 					$value = $pageName  . ' ' . basename( $value );
 					unlink( __DIR__ . '/' . basename( $value ) );
-					$value = urlencode( $value );
+					$value = $value;
 				}
 			}
 			$field_values[$key] = $value;
